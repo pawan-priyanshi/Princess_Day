@@ -1,0 +1,345 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Royal Invitation for Princess Priyanshi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--royal:#4b2a85;--deep:#2f1b57;--lav:#B9A0E8;--lilac:#E6D9F5;--gold:#D8BD83;--gold2:#b8963f;--ivory:#FFF9F0;--cream:#F6EBD9;--ink:#4a3a5e;
+--cin:"Cinzel",Georgia,serif;--ser:"Cormorant Garamond",Georgia,serif;--sans:"Inter",system-ui,sans-serif}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--ink);background:var(--ivory);line-height:1.7}
+button{font:inherit;cursor:pointer;border:0;background:none}
+:focus-visible{outline:2px solid var(--royal);outline-offset:4px}
+.mini{width:.9em;height:1em;vertical-align:-.12em;margin-left:.25em}
+
+/* ---------- INTRO: the castle in daylight ---------- */
+#intro{position:fixed;inset:0;z-index:50;overflow:hidden;background:linear-gradient(#4fa8ee,#bfe2f8 60%,#fff0d4);transition:opacity 1.4s ease 2.2s,visibility 0s 3.6s}
+#intro.done{opacity:0;visibility:hidden;pointer-events:none}
+.scene{position:absolute;inset:0;transform-origin:50% 62%;transition:transform 4.4s cubic-bezier(.65,0,.25,1)}
+#intro.open .scene{transform:scale(3.3)}
+.scene svg{width:100%;height:100%;display:block}
+#castlePhoto{display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.photo #castlePhoto{display:block}.photo .scene svg{display:none}
+.vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,transparent 60%,#2f1b5733 100%),linear-gradient(transparent 55%,#fff9f099)}
+.flare{position:absolute;inset:0;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 56%,#fff0b8cc,#ffd97a55 25%,transparent 55%);transition:opacity 2.6s ease .6s}
+.open .flare{opacity:1}
+.door{transition:transform 2.8s cubic-bezier(.45,0,.2,1) .3s;transform-box:fill-box}
+.door.l{transform-origin:left center}.door.r{transform-origin:right center}
+.open .door.l{transform:scaleX(.06) skewY(-9deg)}
+.open .door.r{transform:scaleX(.06) skewY(9deg)}
+.inlight{opacity:.8;transition:opacity 2.4s ease .5s}.open .inlight{opacity:1}
+.rays{opacity:0;transform-origin:400px 432px;transform:scaleY(.6);transition:opacity 2.5s ease 1s,transform 3s ease 1s}
+.open .rays{opacity:.85;transform:none}
+.wn{fill:#a9c8ee;stroke:#b8963f;stroke-width:1.4}
+.mist{animation:drift 26s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translateX(-30px)}}
+#invite{position:absolute;left:50%;bottom:max(3vh,14px);transform:translateX(-50%);width:min(540px,92vw);padding:1rem 1rem 1.2rem;text-align:center;background:#fff9f0e0;backdrop-filter:blur(8px);border:1px solid var(--gold);outline:1px solid #d8bd8366;outline-offset:4px;box-shadow:0 16px 44px #4b2a8533;transition:opacity 1s,transform 1s}
+.open #invite{opacity:0;pointer-events:none;transform:translate(-50%,20px)}
+#invite h1{font:600 clamp(1.15rem,4vw,1.8rem)/1.2 var(--cin);letter-spacing:.2em;color:var(--royal)}
+#invite p{font:italic 500 clamp(1.1rem,3vw,1.4rem) var(--ser);color:var(--ink);margin:.3rem 0 1rem}
+.rule{width:min(220px,60vw);height:1px;margin:.8rem auto;background:linear-gradient(90deg,transparent,var(--gold2),transparent)}
+.btn{color:var(--ivory);font:500 .78rem var(--cin);letter-spacing:.2em;padding:.95rem 2rem;border:1px solid var(--gold);background:var(--royal);box-shadow:0 6px 18px #4b2a8544;transition:background .4s,color .4s,transform .3s}
+.btn:hover{background:var(--gold);color:var(--deep);transform:translateY(-2px)}
+
+/* ---------- particles + music ---------- */
+#fx{position:fixed;inset:0;pointer-events:none;z-index:55;overflow:hidden}
+.dust{position:absolute;bottom:-12px;width:4px;height:4px;border-radius:50%;background:#f0c85a;box-shadow:0 0 10px 3px #ffe29a99;animation:up linear forwards}
+.hrt{position:absolute;bottom:-30px;color:#f6a8d0;animation:up linear forwards}
+@keyframes up{to{transform:translateY(-110vh) translateX(var(--dx,20px));opacity:0}}
+#music{position:fixed;right:16px;bottom:16px;z-index:60;width:46px;height:46px;border:1px solid var(--gold);border-radius:50%;color:var(--royal);background:#fff9f0ee;box-shadow:0 4px 14px #4b2a8533;display:none;font-size:1rem}
+#music.show{display:block}#music.on{box-shadow:0 0 0 4px #d8bd8355,0 4px 14px #4b2a8533}
+
+/* ---------- main: bright ivory ---------- */
+main{visibility:hidden;background:linear-gradient(#34195e,#5b2f94 35%,#8e4ba0 70%,#c77fb0)}
+main.show{visibility:visible}
+section{min-height:100vh;padding:6rem 1.3rem;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative}
+h2{font:600 clamp(1.4rem,4.4vw,2.5rem)/1.3 var(--cin);letter-spacing:.08em;color:var(--ivory);text-shadow:0 2px 18px #2f1b5788;max-width:20em}
+.sub{font:italic 500 clamp(1.3rem,3.4vw,1.8rem) var(--ser);color:#f8e8f8;margin:1.2rem 0;max-width:28em}
+.bigberry{width:44px;height:48px;margin-bottom:1.4rem}
+.btn.solid{margin-top:1.6rem}
+#welcome{background:radial-gradient(ellipse at 50% 30%,#c98bdc77,transparent 65%),linear-gradient(#34195e,#5b2f94 70%,#7a3f9e)}
+
+/* ---------- letter ---------- */
+#letter{background:radial-gradient(ellipse at 50% 20%,#f0a8cc55,transparent 60%),linear-gradient(#7a3f9e,#9a4fa4 50%,#b3649f)}
+.paper{position:relative;max-width:700px;width:100%;text-align:left;color:#3a2a4d;background:linear-gradient(#fffdf8,#fbf3e4);padding:4rem clamp(1.4rem,6vw,3.6rem) 3.2rem;box-shadow:0 22px 55px #4b2a8526,0 2px 6px #4b2a8514;outline:1px solid var(--gold);outline-offset:-12px;opacity:0;transform:translateY(24px);transition:opacity 1.6s,transform 1.6s}
+.paper.in{opacity:1;transform:none}
+.seal{position:absolute;top:-34px;left:50%;transform:translateX(-50%);width:68px;height:68px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#7a3fb0,#3c1a68);box-shadow:0 5px 12px #2f1b5766,inset 0 0 0 4px #5b2d8e;display:grid;place-items:center;border:2px solid #8f63c4}
+.seal svg{width:28px;height:30px}
+.paper h2{color:var(--royal);font-size:clamp(1.3rem,4vw,1.9rem);text-align:center;margin:0 auto 1.8rem}
+.paper h3{font:600 1.7rem var(--ser);color:var(--royal);margin:2.4rem 0 .6rem;padding-bottom:.4rem;border-bottom:1px solid #d8bd8399}
+.paper p{font:500 1.28rem/1.75 var(--ser);margin-bottom:1rem}
+.paper .sign{font:italic 600 1.7rem var(--ser);color:var(--royal);text-align:right}
+
+/* ---------- portrait ---------- */
+#photo{background:radial-gradient(ellipse at 50% 42%,#ffd3e977,transparent 60%),linear-gradient(#b3649f,#8e4ba0 55%,#6a3a9a)}
+.frame{position:relative;width:min(82vw,380px);aspect-ratio:4/5;margin:2rem 0;padding:16px;background:linear-gradient(135deg,#f0dba6,#b8963f 50%,#e6cd8a);box-shadow:0 0 80px #f5a8d466,0 22px 44px #1d0e3d88}
+.frame::before{content:"";position:absolute;inset:7px;border:1px solid #6b5420;pointer-events:none;z-index:2}
+.frame i{position:absolute;width:26px;height:26px;border:2px solid #6b5420;z-index:3}
+.frame i:nth-of-type(1){top:-6px;left:-6px;border-right:0;border-bottom:0}.frame i:nth-of-type(2){top:-6px;right:-6px;border-left:0;border-bottom:0}
+.frame i:nth-of-type(3){bottom:-6px;left:-6px;border-right:0;border-top:0}.frame i:nth-of-type(4){bottom:-6px;right:-6px;border-left:0;border-top:0}
+.pic{position:relative;width:100%;height:100%;background:#f3ecfb;display:grid;place-items:center;padding:1.5rem;font:italic 500 1.4rem var(--ser);color:var(--royal);overflow:hidden}
+.pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cap{font:italic 500 1.35rem var(--ser);color:#f8e8f8;max-width:24em}
+
+/* ---------- final: castle by day ---------- */
+#final{overflow:hidden;justify-content:flex-start;padding-top:7rem;padding-bottom:42vh;background:#bfe2f8}
+#final .bg{position:absolute;inset:0}
+#final .bg svg{width:100%;height:100%;display:block}
+#final::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(#6a3a9a,#7a3f9eee 38%,#b3649f88 62%,transparent 85%)}
+#final>*:not(.bg){position:relative;z-index:2}
+.crown{width:64px;margin-bottom:1rem}
+#hugMsg{min-height:4rem;margin-top:1.4rem;font:italic 600 clamp(1.4rem,4vw,2rem) var(--ser);color:#ffe8b0;opacity:0;transition:opacity 1s}
+#hugMsg.show{opacity:1}
+footer{padding:2rem;text-align:center;font:italic 1.2rem var(--ser);color:#f3d9f0;background:#2b1650}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}html{scroll-behavior:auto}}
+main .btn{background:linear-gradient(#f9dfa8,#d8bd83);color:var(--deep);border-color:#fff1c9}main .btn:hover{background:var(--ivory)}</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <symbol id="berry" viewBox="0 0 100 110">
+  <path d="M50 105C20 90 6 62 10 40c3-16 20-22 40-14 20-8 37-2 40 14 4 22-10 50-40 65z" fill="#c2415f"/>
+  <g fill="#f1dca0"><ellipse cx="30" cy="48" rx="2.6" ry="4"/><ellipse cx="50" cy="54" rx="2.6" ry="4"/><ellipse cx="70" cy="48" rx="2.6" ry="4"/><ellipse cx="40" cy="72" rx="2.6" ry="4"/><ellipse cx="60" cy="72" rx="2.6" ry="4"/><ellipse cx="50" cy="90" rx="2.6" ry="4"/></g>
+  <path d="M50 28c-10-12-26-10-30-4 10 0 16 4 22 8-10 0-14 4-16 8 12-2 18 0 24 4 6-4 12-6 24-4-2-4-6-8-16-8 6-4 12-8 22-8-4-6-20-8-30 4z" fill="#7a9a6a"/>
+ </symbol>
+ <symbol id="crown" viewBox="0 0 80 50"><path d="M6 42L2 12l20 14 18-24 18 24 20-14-4 30z" fill="none" stroke="#D8BD83" stroke-width="2" stroke-linejoin="round"/><path d="M6 46h68" stroke="#D8BD83" stroke-width="2"/><circle cx="40" cy="6" r="2.4" fill="#D8BD83"/><circle cx="2" cy="12" r="2" fill="#D8BD83"/><circle cx="78" cy="12" r="2" fill="#D8BD83"/></symbol>
+</svg>
+
+<!-- ============ CASTLE INTRO ============ -->
+<div id="intro">
+ <div class="scene" id="scene">
+ <img id="castlePhoto" src="castle.jpg" alt="" onload="document.getElementById('intro').classList.add('photo')" onerror="this.remove()">
+ <svg id="castleSvg" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <defs>
+   <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4aa3ec"/><stop offset=".45" stop-color="#97cef5"/><stop offset=".72" stop-color="#d9eefb"/><stop offset="1" stop-color="#fff0d4"/></linearGradient>
+   <radialGradient id="sun"><stop offset="0" stop-color="#fffbe0"/><stop offset=".25" stop-color="#fff1b8" stop-opacity=".7"/><stop offset="1" stop-color="#fff1b8" stop-opacity="0"/></radialGradient>
+   <linearGradient id="stone" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fffaf0"/><stop offset=".55" stop-color="#f0e0c6"/><stop offset="1" stop-color="#c9b496"/></linearGradient>
+   <linearGradient id="roof" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9b7de0"/><stop offset=".55" stop-color="#5f3fa8"/><stop offset="1" stop-color="#37226f"/></linearGradient>
+   <linearGradient id="gold" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#fff0b0"/><stop offset="1" stop-color="#f2c45a"/></linearGradient>
+   <linearGradient id="grass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7cbc67"/><stop offset="1" stop-color="#3d8545"/></linearGradient>
+   <linearGradient id="warm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe3a0" stop-opacity=".35"/><stop offset=".6" stop-color="#ffe3a0" stop-opacity="0"/></linearGradient>
+   <linearGradient id="mistg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".6" stop-color="#fff" stop-opacity=".45"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+   <radialGradient id="ray" cx=".5" cy="0" r="1"><stop offset="0" stop-color="#fff2b8" stop-opacity=".95"/><stop offset="1" stop-color="#ffe08a" stop-opacity="0"/></radialGradient>
+   <pattern id="brick" width="14" height="9" patternUnits="userSpaceOnUse"><path d="M0 8.5h14M7 0v8.5" stroke="#8a7656" stroke-width=".5" opacity=".28" fill="none"/></pattern>
+   <pattern id="bars" width="6" height="10" patternUnits="userSpaceOnUse"><rect width="1.5" height="10" fill="#f2c45a"/></pattern>
+   <filter id="soft"><feGaussianBlur stdDeviation="3"/></filter>
+  </defs>
+  <g transform="scale(1.25 1)">
+  <rect width="800" height="600" fill="url(#sky)"/>
+  <circle cx="150" cy="90" r="230" fill="url(#sun)"/>
+  <path d="M150 90L470 430 330 450z" fill="#fff" opacity=".07"/><path d="M150 90L600 400 520 440z" fill="#fff" opacity=".05"/>
+  <g fill="#fff" filter="url(#soft)" opacity=".95"><ellipse cx="90" cy="170" rx="70" ry="15"/><ellipse cx="140" cy="158" rx="46" ry="16"/><ellipse cx="660" cy="120" rx="80" ry="15"/><ellipse cx="710" cy="106" rx="48" ry="17"/><ellipse cx="560" cy="60" rx="55" ry="11"/><ellipse cx="240" cy="70" rx="52" ry="11"/><ellipse cx="740" cy="230" rx="60" ry="12"/></g>
+  <path d="M0 395L70 350 140 385 220 335 300 385 380 345 470 390 560 340 650 385 730 350 800 380V470H0Z" fill="#b6c9e6" opacity=".7"/>
+  <path d="M0 410Q110 365 230 400T450 390T660 398T800 385V480H0Z" fill="#9cc7a8"/>
+  <path d="M0 440Q160 395 320 430T580 420T800 410V500H0Z" fill="#78b36e"/>
+  <g fill="#3f7f48"><ellipse cx="70" cy="420" rx="17" ry="22"/><ellipse cx="108" cy="428" rx="14" ry="18"/><ellipse cx="716" cy="418" rx="17" ry="22"/><ellipse cx="752" cy="426" rx="14" ry="18"/><ellipse cx="30" cy="440" rx="15" ry="20"/><ellipse cx="780" cy="438" rx="15" ry="20"/></g>
+  </g>
+  <g transform="translate(100 0)">
+  <!-- ===== castle ===== -->
+  <g stroke="#8a7656" stroke-width=".7">
+   <rect x="170" y="334" width="460" height="100" fill="url(#stone)"/><rect x="170" y="334" width="460" height="100" fill="url(#brick)" stroke="none"/>
+   <path d="M170 334h460" stroke="#d8c7a8" stroke-width="6" stroke-dasharray="9 6" fill="none"/>
+   <rect x="190" y="262" width="52" height="172" fill="url(#stone)"/><path d="M182 264L216 172 250 264z" fill="url(#roof)"/>
+   <rect x="558" y="262" width="52" height="172" fill="url(#stone)"/><path d="M550 264L584 172 618 264z" fill="url(#roof)"/>
+   <rect x="268" y="212" width="60" height="222" fill="url(#stone)"/><rect x="268" y="212" width="60" height="222" fill="url(#brick)" stroke="none"/><path d="M259 214L298 104 337 214z" fill="url(#roof)"/>
+   <rect x="472" y="212" width="60" height="222" fill="url(#stone)"/><rect x="472" y="212" width="60" height="222" fill="url(#brick)" stroke="none"/><path d="M463 214L502 104 541 214z" fill="url(#roof)"/>
+   <rect x="332" y="246" width="136" height="188" fill="url(#stone)"/><rect x="332" y="246" width="136" height="188" fill="url(#brick)" stroke="none"/>
+   <path d="M332 246h136" stroke="#d8c7a8" stroke-width="6" stroke-dasharray="9 6" fill="none"/>
+   <rect x="360" y="142" width="80" height="110" fill="url(#stone)"/><rect x="360" y="142" width="80" height="110" fill="url(#brick)" stroke="none"/><path d="M350 144L400 56 450 144z" fill="url(#roof)"/>
+   <g stroke="#f2c45a" stroke-width="1.6"><path d="M400 56V30M298 104V82M502 104V82M216 172V152M584 172V152"/></g>
+   <g fill="#f2c45a" stroke="none"><path d="M400 32l18 6-18 6z"/><path d="M298 84l13 4-13 4z"/><path d="M502 84l13 4-13 4z"/><circle cx="216" cy="152" r="3"/><circle cx="584" cy="152" r="3"/></g>
+   <rect x="370" y="252" width="60" height="6" fill="#e8d9bb"/><rect x="342" y="270" width="36" height="5" fill="#e8d9bb"/><rect x="422" y="270" width="36" height="5" fill="#e8d9bb"/>
+  </g>
+  <g class="wns"><rect class="wn" x="392" y="168" width="16" height="36" rx="8"/><rect class="wn" x="283" y="236" width="14" height="32" rx="7"/><rect class="wn" x="283" y="310" width="14" height="32" rx="7"/><rect class="wn" x="503" y="236" width="14" height="32" rx="7"/><rect class="wn" x="503" y="310" width="14" height="32" rx="7"/><rect class="wn" x="206" y="300" width="14" height="30" rx="7"/><rect class="wn" x="580" y="300" width="14" height="30" rx="7"/><rect class="wn" x="346" y="282" width="16" height="32" rx="8"/><rect class="wn" x="438" y="282" width="16" height="32" rx="8"/><rect class="wn" x="206" y="370" width="14" height="30" rx="7"/><rect class="wn" x="580" y="370" width="14" height="30" rx="7"/><rect class="wn" x="392" y="208" width="16" height="30" rx="8"/></g>
+  <!-- grand gate -->
+  <path d="M350 434V344a50 50 0 0 1 100 0V434z" fill="#3a2670"/>
+  <g class="inlight"><path d="M352 434V344a48 48 0 0 1 96 0V434z" fill="url(#gold)"/></g>
+  <g class="rays"><path d="M352 434L190 600H610L448 434z" fill="url(#ray)"/></g>
+  <g class="door l"><path d="M350 434V344a50 50 0 0 1 50-50V434z" fill="#4b2a85"/><path d="M350 434V344a50 50 0 0 1 50-50V434z" fill="url(#bars)"/><path d="M350 434V344a50 50 0 0 1 50-50V434z" fill="none" stroke="#f2c45a" stroke-width="2"/><circle cx="392" cy="372" r="3" fill="#f2c45a"/></g>
+  <g class="door r"><path d="M400 294a50 50 0 0 1 50 50V434H400z" fill="#4b2a85"/><path d="M400 294a50 50 0 0 1 50 50V434H400z" fill="url(#bars)"/><path d="M400 294a50 50 0 0 1 50 50V434H400z" fill="none" stroke="#f2c45a" stroke-width="2"/><circle cx="408" cy="372" r="3" fill="#f2c45a"/></g>
+  <path d="M342 434V344a58 58 0 0 1 116 0V434" fill="none" stroke="#f2c45a" stroke-width="4"/><path d="M342 434V344a58 58 0 0 1 116 0V434" fill="none" stroke="#c9b496" stroke-width="9" opacity=".6" transform="translate(0 0)"/><path d="M392 288h16l-8 14z" fill="#f2c45a"/>
+  <!-- staircase -->
+  <g stroke="#a8956f" stroke-width=".6"><rect x="338" y="434" width="124" height="6" fill="#fbf1dd"/><rect x="326" y="440" width="148" height="6" fill="#f3e6cc"/><rect x="314" y="446" width="172" height="6" fill="#ebdcc0"/><rect x="302" y="452" width="196" height="6" fill="#e3d2b4"/><rect x="290" y="458" width="220" height="6" fill="#dbc8a8"/></g>
+  <!-- gardens -->
+  <rect x="-100" y="464" width="1000" height="136" fill="url(#grass)"/>
+  <path d="M290 464h220l110 136H180z" fill="#f5e6c8"/><path d="M400 470v130" stroke="#e3cfa5" stroke-dasharray="8 9" stroke-width="2"/>
+  <g fill="#2f6f3c"><ellipse cx="236" cy="474" rx="40" ry="9"/><ellipse cx="564" cy="474" rx="40" ry="9"/><ellipse cx="130" cy="500" rx="60" ry="12"/><ellipse cx="670" cy="500" rx="60" ry="12"/><ellipse cx="90" cy="575" rx="95" ry="20"/><ellipse cx="710" cy="575" rx="95" ry="20"/></g>
+  <g id="flowers"></g>
+  <g><ellipse cx="255" cy="528" rx="38" ry="10" fill="#d9c9a8"/><ellipse cx="255" cy="525" rx="31" ry="7" fill="#8fd0f0"/><path d="M255 525V494" stroke="#e8f6ff" stroke-width="3" stroke-linecap="round"/><path d="M255 497q-15 5-18 24M255 497q15 5 18 24" stroke="#e8f6ff" stroke-width="1.5" fill="none"/>
+   <ellipse cx="545" cy="528" rx="38" ry="10" fill="#d9c9a8"/><ellipse cx="545" cy="525" rx="31" ry="7" fill="#8fd0f0"/><path d="M545 525V494" stroke="#e8f6ff" stroke-width="3" stroke-linecap="round"/><path d="M545 497q-15 5-18 24M545 497q15 5 18 24" stroke="#e8f6ff" stroke-width="1.5" fill="none"/></g>
+  <g class="mist"><rect x="-100" y="412" width="1000" height="60" fill="url(#mistg)"/></g>
+  </g>
+  <rect width="1000" height="600" fill="url(#warm)"/>
+ </svg>
+ </div>
+ <div class="vig"></div>
+ <div class="flare"></div>
+ <div id="invite">
+  <h1>A ROYAL INVITATION</h1>
+  <div class="rule"></div>
+  <p>Especially prepared for Princess Priyanshi</p>
+  <button class="btn" id="openBtn">OPEN THE CASTLE GATES ♡</button>
+ </div>
+</div>
+<div id="fx" aria-hidden="true"></div>
+<!-- ONE persistent audio element: place song.mp3 next to this file -->
+<audio id="song" src="song.mp3" loop preload="auto"></audio>
+<button id="music" aria-label="Pause music" title="Music">♪</button>
+
+<main id="main">
+ <section id="welcome">
+  <svg class="bigberry" viewBox="0 0 100 110" aria-hidden="true"><use href="#berry"/></svg>
+  <h2>HAPPY PRINCESS DAY, MY STRAWBERRY PRINCESS</h2>
+  <div class="rule"></div>
+  <p class="sub">To my favourite Billi, my little Makdu, my beautiful girl.</p>
+  <p class="sub" style="font-size:1.25rem;margin-top:0">Today, this little kingdom belongs to you.</p>
+  <button class="btn solid" data-scroll="letter">ENTER YOUR LITTLE FAIRYTALE</button>
+ </section>
+
+ <section id="letter">
+  <article class="paper" id="paper">
+   <div class="seal" aria-hidden="true"><svg viewBox="0 0 100 110"><use href="#berry"/></svg></div>
+<h2>My Letter to My Little Makdu</h2>
+
+   <p>Hii Priyanshi, my cute little Makdu! ❤️</p>
+   <p>That day, 10th November, I honestly don't remember much, sorry for that. But I hope you enjoyed it. I do remember you laughing that day, and I hope all my efforts brought a little smile to your face.</p>
+   <p>And now, on this beautiful Princess Day, I want to wish you something special.</p>
+   <p>Well, well! I know you have been giving princess treatment to everyone around you, but still...</p>
+   <p>I am also enjoying someone giving me princess treatment, hehe. But this day deserves to be yours.</p>
+   <p>My cute little princess, I am sorry again about that Bhavya incident. I couldn't afford anything too expensive this time, hehe.</p>
+   <p>I love you a lot.</p>
+   <p>Also, all those nights when we were at Amity with hardly anyone around — those were my favourite times at Amity. We roamed around, talked and enjoyed everything. The weather, the environment, the atmosphere... everything felt so perfect.</p>
+
+   <h3>About Convocation ❤️</h3>
+   <p>Also, my stupidity of keeping you away from the convocation was wrong.</p>
+   <p>You are a part of my life, my girl, and obviously you should come!</p>
+   <p>Bhavya is just Bhavya. The fear I had around that situation will go away. He is nobody between us, nothing more than just Bhavya.</p>
+   <p>If I am comfortable with you letting me hear your conversation with Nayan, then Bhavya is no different.</p>
+   <p>So yes, you coming to see me receive my degree is going to be a very special and exciting day.</p>
+   <p>It might feel a little awkward, but as long as Pawanshi is together, nothing beats us.</p>
+
+   <h3>Our Little Memories<svg class="mini" viewBox="0 0 100 110" aria-hidden="true"><use href="#berry"/></svg></h3>
+   <p>These past few days, I got to see an even cuter version of you — the real, honest and adorable you.</p>
+   <p>And I absolutely love it.</p>
+   <p>Watching <em>Happiness</em> with you was so much fun! All those zombies, and then us acting like zombies ourselves. Everything was just hilarious.</p>
+   <p>And 17th November... me getting on and seeing you, OMG! That was so cuteeee.</p>
+   <p>You are literally so cute, and I love you.</p>
+   <p>Thank you for making me happy, excited and so much more energetic.</p>
+   <p>Also, 18th November gym skipped because of coffee with Priyanshi. Hehe.</p>
+   <p>But 19th November, we are going to the gym. PAKKA!</p>
+   <p>I promise I will join the gym on 19th November. Only for you! ❤️</p>
+
+   <h3>A Little Strawberry Surprise<svg class="mini" viewBox="0 0 100 110" aria-hidden="true"><use href="#berry"/></svg></h3>
+   <p>You once showed me that Anjali wala lamp, and I liked it.</p>
+   <p>Then I thought you might like the Mittu Baby wala lamp.</p>
+   <p>But then I thought... I am not liking that Bhavya wala lamp. I am not ready to see another name attached to the Mittu Baby lamp, hehe.</p>
+   <p>So I sat down, searched for a completely new lamp, found this cute little strawberry lamp, ordered it, and now here I am creating this website for you.</p>
+   <p>A little strawberry lamp, exclusively for my little strawberry princess.</p>
+   <p>I hope you love it.</p>
+
+   <h3>More Pawanshi Moments Ahead!</h3>
+   <p>I have so many things to plan with you.</p>
+   <p>I want our Pawanshi moments to keep going. More dates, more memories, more coffee, more random walks, more laughter and more beautiful days together.</p>
+   <p>And guess what?</p>
+   <p>I am booking you in advance for <strong>28th November — DATE 4.0!</strong></p>
+   <p>The website for that date is already in progress. Hehe.</p>
+   <p>Until then, you are officially reserved.</p>
+   <p>I love you so much, Priyanshi.</p>
+   <p>Thank you for being you, for making me smile, for making ordinary days exciting and for bringing so much happiness into my life.</p>
+   <p><strong>Happy Princess Day, my dear Priyanshi.</strong></p>
+   <p>Your little kingdom is always open.</p>
+   <p>With lots of love,</p>
+   <p class="sign">Your Bina Poonch Wala Bandar ❤️</p>
+  </article>
+ </section>
+
+ <section id="photo">
+  <h2>A Memory I Want to Keep Forever</h2>
+  <div class="rule"></div>
+  <!-- ▼▼ REPLACE THE PHOTO: save your picture as "photo.jpg" in this same folder
+       (or change the src below). Until it exists, the placeholder text is shown. ▼▼ -->
+  <div class="frame">
+   <i></i><i></i><i></i><i></i>
+   <div class="pic">Our photograph goes here
+    <img src="photo.jpg" alt="Pawan and Priyanshi together" onerror="this.style.display='none'">
+   </div>
+  </div>
+  <p class="cap">Some moments are simple, but the person beside you makes them unforgettable.</p>
+ </section>
+
+ <section id="final">
+  <div class="bg" id="finalBg" aria-hidden="true"></div>
+  <svg class="crown" viewBox="0 0 80 50" aria-hidden="true"><use href="#crown"/></svg>
+  <h2>HAPPY PRINCESS DAY, MY DEAREST PRIYANSHI</h2>
+  <div class="rule"></div>
+  <p class="sub">My little Billi. My Makdu. My favourite person.</p>
+  <p class="sub" style="font-size:1.25rem;margin-top:0">May you always smile, stay happy, feel loved and receive all the princess treatment you deserve.</p>
+  <p class="sub" style="margin-top:0">Keep shining, my little strawberry <svg class="mini" viewBox="0 0 100 110" aria-hidden="true"><use href="#berry"/></svg></p>
+  <button class="btn solid" id="hugBtn">ONE LAST HUG FOR MY PRINCESS</button>
+  <p id="hugMsg" role="status"></p>
+ </section>
+ <footer>Your little kingdom is always open.</footer>
+</main>
+
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const song = $('#song'), music = $('#music'), intro = $('#intro'), main = $('#main');
+  let userPaused = false, opened = false;
+
+  /* Music: one audio element; never restarted, never autoplays before the first click */
+  const sync = () => { const p = !song.paused; music.classList.toggle('on', p); music.textContent = p ? '❚❚' : '♪'; music.setAttribute('aria-label', p ? 'Pause music' : 'Play music'); };
+  const ensure = () => { if (opened && !userPaused && song.paused) song.play().catch(() => {}); };
+  song.addEventListener('play', sync); song.addEventListener('pause', sync);
+  music.addEventListener('click', e => { e.stopPropagation(); if (song.paused) { userPaused = false; song.play().catch(() => {}); } else { userPaused = true; song.pause(); } });
+  document.addEventListener('click', e => { if (e.target.closest('button') && e.target !== music) ensure(); });
+
+  /* Ambient gold dust (kept light for phones) */
+  const fx = $('#fx'), small = innerWidth < 700, still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const add = (cls, txt, o = {}) => {
+    const el = document.createElement('span'); el.className = cls; if (txt) el.textContent = txt;
+    el.style.left = (o.x ?? Math.random() * 100) + 'vw'; el.style.setProperty('--dx', (Math.random() * 60 - 30) + 'px');
+    el.style.animationDuration = (o.d ?? 8 + Math.random() * 8) + 's'; if (o.s) el.style.fontSize = o.s + 'px';
+    fx.appendChild(el); el.addEventListener('animationend', () => el.remove());
+  };
+  let burst = 0;
+  setInterval(() => { if (opened && !document.hidden && fx.children.length < (small ? 10 : 22)) add('dust'); }, still ? 4000 : 700);
+
+  /* Opening the gates */
+  $('#openBtn').addEventListener('click', () => {
+    if (opened) return; opened = true;
+    song.play().catch(() => {});
+    music.classList.add('show');
+    for (let i = 0; i < (small ? 12 : 24); i++) setTimeout(() => add('dust', '', { x: 35 + Math.random() * 30, d: 4 + Math.random() * 4 }), 900 + i * 90);
+    intro.classList.add('open'); main.classList.add('show');
+    setTimeout(() => { intro.classList.add('done'); window.scrollTo(0, 0); }, 3600);
+  });
+
+  /* Flower beds for the garden (built before the final screen copies the scene) */
+  const fg = document.getElementById('flowers'), NS = 'http://www.w3.org/2000/svg', cols = ['#ffffff', '#f7c6dc', '#d9c4f5', '#ffe9a8', '#f9a8c4'];
+  [[100, 482, 110, 95], [590, 482, 110, 95], [10, 530, 100, 60], [690, 530, 100, 60]].forEach(([x, y, w, hh]) => {
+    for (let i = 0; i < 26; i++) { const c = document.createElementNS(NS, 'circle'); c.setAttribute('cx', x + Math.random() * w); c.setAttribute('cy', y + Math.random() * hh); c.setAttribute('r', 2 + Math.random() * 2.2); c.setAttribute('fill', cols[i % cols.length]); fg.appendChild(c); }
+  });
+
+  /* Final screen reuses the castle by day, gates left open */
+  const bg = $('#finalBg'); bg.className = 'bg open'; bg.appendChild($('#castleSvg').cloneNode(true));
+
+  /* Letter fades in when scrolled to */
+  new IntersectionObserver((e, o) => e.forEach(x => { if (x.isIntersecting) { x.target.classList.add('in'); o.unobserve(x.target); } }), { threshold: .08 }).observe($('#paper'));
+
+  document.querySelectorAll('[data-scroll]').forEach(b => b.addEventListener('click', () => document.getElementById(b.dataset.scroll).scrollIntoView({ behavior: 'smooth' })));
+
+  /* Final hug: a few soft hearts, then the message */
+  $('#hugBtn').addEventListener('click', () => {
+    for (let i = 0; i < (small ? 8 : 14); i++) setTimeout(() => add('hrt', '♡', { x: 25 + Math.random() * 50, d: 3.5 + Math.random() * 3, s: 16 + Math.random() * 18 }), i * 120);
+    const m = $('#hugMsg'); m.textContent = 'Sending you the biggest hug, my little Makdu. I love you!'; m.classList.add('show');
+  });
+})();
+</script>
+</body>
+</html>
