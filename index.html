@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,16 +78,16 @@ h2{font:600 clamp(1.4rem,4.4vw,2.5rem)/1.3 var(--cin);letter-spacing:.08em;color
 
 /* ---------- portrait ---------- */
 #photo{background:radial-gradient(ellipse at 50% 42%,#ffd3e977,transparent 60%),linear-gradient(#b3649f,#8e4ba0 55%,#6a3a9a)}
-.frame{position:relative;width:min(86vw,420px);margin:2rem 0;padding:16px;background:linear-gradient(135deg,#f0dba6,#b8963f 50%,#e6cd8a);box-shadow:0 0 80px #f5a8d466,0 22px 44px #1d0e3d88}
+.frame{position:relative;width:auto;max-width:86vw;margin:2rem 0;padding:16px;background:linear-gradient(135deg,#f0dba6,#b8963f 50%,#e6cd8a);box-shadow:0 0 80px #f5a8d466,0 22px 44px #1d0e3d88}
 .frame::before{content:"";position:absolute;inset:7px;border:1px solid #6b5420;pointer-events:none;z-index:2}
 .frame i{position:absolute;width:26px;height:26px;border:2px solid #6b5420;z-index:3}
 .frame i:nth-of-type(1){top:-6px;left:-6px;border-right:0;border-bottom:0}.frame i:nth-of-type(2){top:-6px;right:-6px;border-left:0;border-bottom:0}
 .frame i:nth-of-type(3){bottom:-6px;left:-6px;border-right:0;border-top:0}.frame i:nth-of-type(4){bottom:-6px;right:-6px;border-left:0;border-top:0}
-.pic{position:relative;width:100%;aspect-ratio:4/5;background:#f3ecfb;display:grid;place-items:center;padding:1.5rem;font:italic 500 1.4rem var(--ser);color:var(--royal);overflow:hidden}
+.pic{position:relative;width:min(70vw,320px);aspect-ratio:4/5;background:#f3ecfb;display:grid;place-items:center;padding:1.5rem;font:italic 500 1.4rem var(--ser);color:var(--royal);overflow:hidden}
 .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.pic.has{aspect-ratio:auto;padding:0;display:block}
+.pic.has{width:auto;aspect-ratio:auto;padding:0;display:block;background:none}
 .pic.has .ph{display:none}
-.pic.has img{position:static;display:block;width:100%;height:auto;max-height:78vh;object-fit:contain}
+.pic.has img{position:static;display:block;width:auto;height:auto;max-width:calc(86vw - 32px);max-height:62vh;object-fit:contain}
 .cap{font:italic 500 1.35rem var(--ser);color:#f8e8f8;max-width:24em}
 
 /* ---------- final: castle by day ---------- */
