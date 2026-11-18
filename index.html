@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +22,8 @@ button{font:inherit;cursor:pointer;border:0;background:none}
 .scene{position:absolute;inset:0;transform-origin:50% 62%;transition:transform 4.4s cubic-bezier(.65,0,.25,1)}
 #intro.open .scene{transform:scale(3.3)}
 .scene svg{width:100%;height:100%;display:block}
-#castlePhoto{display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#castlePhoto{display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:1}
+.photo .scene::before{content:"";position:absolute;inset:-5%;background:var(--pbg) center/cover;filter:blur(26px) brightness(.95)}
 .photo #castlePhoto{display:block}.photo .scene svg{display:none}
 .vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,transparent 60%,#2f1b5733 100%),linear-gradient(transparent 55%,#fff9f099)}
 .flare{position:absolute;inset:0;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 56%,#fff0b8cc,#ffd97a55 25%,transparent 55%);transition:opacity 2.6s ease .6s}
@@ -77,13 +77,16 @@ h2{font:600 clamp(1.4rem,4.4vw,2.5rem)/1.3 var(--cin);letter-spacing:.08em;color
 
 /* ---------- portrait ---------- */
 #photo{background:radial-gradient(ellipse at 50% 42%,#ffd3e977,transparent 60%),linear-gradient(#b3649f,#8e4ba0 55%,#6a3a9a)}
-.frame{position:relative;width:min(82vw,380px);aspect-ratio:4/5;margin:2rem 0;padding:16px;background:linear-gradient(135deg,#f0dba6,#b8963f 50%,#e6cd8a);box-shadow:0 0 80px #f5a8d466,0 22px 44px #1d0e3d88}
+.frame{position:relative;width:min(86vw,420px);margin:2rem 0;padding:16px;background:linear-gradient(135deg,#f0dba6,#b8963f 50%,#e6cd8a);box-shadow:0 0 80px #f5a8d466,0 22px 44px #1d0e3d88}
 .frame::before{content:"";position:absolute;inset:7px;border:1px solid #6b5420;pointer-events:none;z-index:2}
 .frame i{position:absolute;width:26px;height:26px;border:2px solid #6b5420;z-index:3}
 .frame i:nth-of-type(1){top:-6px;left:-6px;border-right:0;border-bottom:0}.frame i:nth-of-type(2){top:-6px;right:-6px;border-left:0;border-bottom:0}
 .frame i:nth-of-type(3){bottom:-6px;left:-6px;border-right:0;border-top:0}.frame i:nth-of-type(4){bottom:-6px;right:-6px;border-left:0;border-top:0}
-.pic{position:relative;width:100%;height:100%;background:#f3ecfb;display:grid;place-items:center;padding:1.5rem;font:italic 500 1.4rem var(--ser);color:var(--royal);overflow:hidden}
+.pic{position:relative;width:100%;aspect-ratio:4/5;background:#f3ecfb;display:grid;place-items:center;padding:1.5rem;font:italic 500 1.4rem var(--ser);color:var(--royal);overflow:hidden}
 .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pic.has{aspect-ratio:auto;padding:0;display:block}
+.pic.has .ph{display:none}
+.pic.has img{position:static;display:block;width:100%;height:auto;max-height:78vh;object-fit:contain}
 .cap{font:italic 500 1.35rem var(--ser);color:#f8e8f8;max-width:24em}
 
 /* ---------- final: castle by day ---------- */
@@ -126,7 +129,7 @@ main .btn{background:linear-gradient(#f9dfa8,#d8bd83);color:var(--deep);border-c
 <!-- ============ CASTLE INTRO ============ -->
 <div id="intro">
  <div class="scene" id="scene">
- <img id="castlePhoto" src="castle.jpg" alt="" onload="document.getElementById('intro').classList.add('photo')" onerror="this.remove()">
+ <img id="castlePhoto" src="castle.jpg" alt="" onload="document.getElementById('intro').classList.add('photo');document.getElementById('scene').style.setProperty('--pbg','url(castle.jpg)')" onerror="this.remove()">
  <svg id="castleSvg" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
   <defs>
    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4aa3ec"/><stop offset=".45" stop-color="#97cef5"/><stop offset=".72" stop-color="#d9eefb"/><stop offset="1" stop-color="#fff0d4"/></linearGradient>
@@ -143,13 +146,14 @@ main .btn{background:linear-gradient(#f9dfa8,#d8bd83);color:var(--deep);border-c
    <filter id="soft"><feGaussianBlur stdDeviation="3"/></filter>
   </defs>
   <g transform="scale(1.25 1)">
-  <rect width="800" height="600" fill="url(#sky)"/>
+  <rect x="-400" width="1600" height="600" fill="url(#sky)"/>
   <circle cx="150" cy="90" r="230" fill="url(#sun)"/>
   <path d="M150 90L470 430 330 450z" fill="#fff" opacity=".07"/><path d="M150 90L600 400 520 440z" fill="#fff" opacity=".05"/>
   <g fill="#fff" filter="url(#soft)" opacity=".95"><ellipse cx="90" cy="170" rx="70" ry="15"/><ellipse cx="140" cy="158" rx="46" ry="16"/><ellipse cx="660" cy="120" rx="80" ry="15"/><ellipse cx="710" cy="106" rx="48" ry="17"/><ellipse cx="560" cy="60" rx="55" ry="11"/><ellipse cx="240" cy="70" rx="52" ry="11"/><ellipse cx="740" cy="230" rx="60" ry="12"/></g>
   <path d="M0 395L70 350 140 385 220 335 300 385 380 345 470 390 560 340 650 385 730 350 800 380V470H0Z" fill="#b6c9e6" opacity=".7"/>
   <path d="M0 410Q110 365 230 400T450 390T660 398T800 385V480H0Z" fill="#9cc7a8"/>
   <path d="M0 440Q160 395 320 430T580 420T800 410V500H0Z" fill="#78b36e"/>
+  <rect x="-400" y="440" width="1600" height="170" fill="#78b36e"/>
   <g fill="#3f7f48"><ellipse cx="70" cy="420" rx="17" ry="22"/><ellipse cx="108" cy="428" rx="14" ry="18"/><ellipse cx="716" cy="418" rx="17" ry="22"/><ellipse cx="752" cy="426" rx="14" ry="18"/><ellipse cx="30" cy="440" rx="15" ry="20"/><ellipse cx="780" cy="438" rx="15" ry="20"/></g>
   </g>
   <g transform="translate(100 0)">
@@ -179,16 +183,16 @@ main .btn{background:linear-gradient(#f9dfa8,#d8bd83);color:var(--deep);border-c
   <!-- staircase -->
   <g stroke="#a8956f" stroke-width=".6"><rect x="338" y="434" width="124" height="6" fill="#fbf1dd"/><rect x="326" y="440" width="148" height="6" fill="#f3e6cc"/><rect x="314" y="446" width="172" height="6" fill="#ebdcc0"/><rect x="302" y="452" width="196" height="6" fill="#e3d2b4"/><rect x="290" y="458" width="220" height="6" fill="#dbc8a8"/></g>
   <!-- gardens -->
-  <rect x="-100" y="464" width="1000" height="136" fill="url(#grass)"/>
+  <rect x="-700" y="464" width="2200" height="136" fill="url(#grass)"/>
   <path d="M290 464h220l110 136H180z" fill="#f5e6c8"/><path d="M400 470v130" stroke="#e3cfa5" stroke-dasharray="8 9" stroke-width="2"/>
   <g fill="#2f6f3c"><ellipse cx="236" cy="474" rx="40" ry="9"/><ellipse cx="564" cy="474" rx="40" ry="9"/><ellipse cx="130" cy="500" rx="60" ry="12"/><ellipse cx="670" cy="500" rx="60" ry="12"/><ellipse cx="90" cy="575" rx="95" ry="20"/><ellipse cx="710" cy="575" rx="95" ry="20"/></g>
   <g id="flowers"></g>
   <g><ellipse cx="255" cy="528" rx="38" ry="10" fill="#d9c9a8"/><ellipse cx="255" cy="525" rx="31" ry="7" fill="#8fd0f0"/><path d="M255 525V494" stroke="#e8f6ff" stroke-width="3" stroke-linecap="round"/><path d="M255 497q-15 5-18 24M255 497q15 5 18 24" stroke="#e8f6ff" stroke-width="1.5" fill="none"/>
    <ellipse cx="545" cy="528" rx="38" ry="10" fill="#d9c9a8"/><ellipse cx="545" cy="525" rx="31" ry="7" fill="#8fd0f0"/><path d="M545 525V494" stroke="#e8f6ff" stroke-width="3" stroke-linecap="round"/><path d="M545 497q-15 5-18 24M545 497q15 5 18 24" stroke="#e8f6ff" stroke-width="1.5" fill="none"/></g>
-  <g class="mist"><rect x="-100" y="412" width="1000" height="60" fill="url(#mistg)"/></g>
+  <g class="mist"><rect x="-700" y="412" width="2200" height="60" fill="url(#mistg)"/></g>
   <g class="tws"><g transform="translate(400 48)"><path class="tw" d="M0-7Q0 0 7 0Q0 0 0 7Q0 0-7 0Q0 0 0-7z"/></g><g transform="translate(436 96)"><path class="tw" d="M0-7Q0 0 7 0Q0 0 0 7Q0 0-7 0Q0 0 0-7z"/></g><g transform="translate(296 92)"><path class="tw" d="M0-7Q0 0 7 0Q0 0 0 7Q0 0-7 0Q0 0 0-7z"/></g><g transform="translate(506 92)"><path class="tw" d="M0-7Q0 0 7 0Q0 0 0 7Q0 0-7 0Q0 0 0-7z"/></g><g transform="translate(216 150)"><path class="tw" d="M0-7Q0 0 7 0Q0 0 0 7Q0 0-7 0Q0 0 0-7z"/></g><g transform="translate(584 150)"><path class="tw" d="M0-7Q0 0 7 0Q0 0 0 7Q0 0-7 0Q0 0 0-7z"/></g><g transform="translate(352 176)"><path class="tw" d="M0-7Q0 0 7 0Q0 0 0 7Q0 0-7 0Q0 0 0-7z"/></g><g transform="translate(452 214)"><path class="tw" d="M0-7Q0 0 7 0Q0 0 0 7Q0 0-7 0Q0 0 0-7z"/></g><g transform="translate(250 250)"><path class="tw" d="M0-7Q0 0 7 0Q0 0 0 7Q0 0-7 0Q0 0 0-7z"/></g><g transform="translate(552 250)"><path class="tw" d="M0-7Q0 0 7 0Q0 0 0 7Q0 0-7 0Q0 0 0-7z"/></g></g>
   </g>
-  <rect width="1000" height="600" fill="url(#warm)"/>
+  <rect x="-500" width="2000" height="600" fill="url(#warm)"/>
  </svg>
  </div>
  <div class="vig"></div>
@@ -283,8 +287,8 @@ main .btn{background:linear-gradient(#f9dfa8,#d8bd83);color:var(--deep);border-c
        (or change the src below). Until it exists, the placeholder text is shown. ▼▼ -->
   <div class="frame">
    <i></i><i></i><i></i><i></i>
-   <div class="pic">Our photograph goes here
-    <img src="photo.jpg" alt="Pawan and Priyanshi together" onerror="this.style.display='none'">
+   <div class="pic"><span class="ph">Our photograph goes here</span>
+    <img src="photo.jpg" alt="Pawan and Priyanshi together" onload="this.parentNode.classList.add('has')" onerror="this.style.display='none'">
    </div>
   </div>
   <p class="cap">Some moments are simple, but the person beside you makes them unforgettable.</p>
@@ -347,6 +351,11 @@ main .btn{background:linear-gradient(#f9dfa8,#d8bd83);color:var(--deep);border-c
 
   /* Final screen reuses the castle by day, gates left open */
   const bg = $('#finalBg'); bg.className = 'bg open'; bg.appendChild($('#castleSvg').cloneNode(true));
+
+  /* Opening castle: pick a view that always shows the spire-to-stairs, whatever the screen shape */
+  const csv = $('#castleSvg');
+  const fit = () => { const a = innerWidth / innerHeight, tall = a < .8, H = tall ? 600 : 560, W = H * a; csv.setAttribute('viewBox', (500 - W / 2) + ' ' + (tall ? 0 : 10) + ' ' + W + ' ' + H); };
+  fit(); addEventListener('resize', fit);
 
   /* Letter fades in when scrolled to */
   new IntersectionObserver((e, o) => e.forEach(x => { if (x.isIntersecting) { x.target.classList.add('in'); o.unobserve(x.target); } }), { threshold: .08 }).observe($('#paper'));
